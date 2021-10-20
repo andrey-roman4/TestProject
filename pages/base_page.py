@@ -1,4 +1,5 @@
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoAlertPresentException
 import math
 
@@ -17,6 +18,13 @@ class BasePage():
         except (NoSuchElementException):
             return False
         return True
+
+    def get_text(self, how, what):
+        try:
+            elem = self.browser.find_element(how, what)
+        except (NoSuchElementException, TimeoutException):
+            raise Exception(f"Object '{what}' not found match selectors with locator's name")
+        return elem.text
 
     def is_current_link(self, key_word):
         if key_word in self.browser.current_url:
@@ -37,3 +45,4 @@ class BasePage():
             alert.accept()
         except NoAlertPresentException:
             print("No second alert presented")
+
