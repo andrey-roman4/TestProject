@@ -8,7 +8,6 @@ class BasketPage(BasePage):
 
     def should_be_text_emtpy_basket(self):
         basket_empty = self.get_text(*BasketPageLocators.BASKET_EMPTY)
-        #print(basket_empty)
         assert basket_empty == 'Your basket is empty. Continue shopping', \
        "Empty basket message is not presented, but should be"
 
